@@ -1,6 +1,6 @@
 # rucio-metadata
 
-This repo contains python scripts designed to get the required metadata for data ingestion into SRCNet via Rucio.
+This repo contains python scripts designed to get the required metadata for data ingestion into UKSRC via Rucio.
 
 At a minimum, each of these scripts will generate a json file containing the following metadata:
 
