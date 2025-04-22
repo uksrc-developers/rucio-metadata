@@ -117,7 +117,11 @@ def get_fits_header_dict(fpath, verbose=False, indent="\t") -> dict:
             # FIXME: This assumes that CRPIXn references the center
             # pixel in the image which need not be the case.
             naxis = header["NAXIS"]
-            ctypes = [header[f"CTYPE{i+1}"][:4] for i in range(naxis)]
+            ctypes = []
+            for i in range(naxis):
+                ctype_key = f"CTYPE{i+1}"
+                if ctype_key in header:
+                    ctypes.append(header[ctype_key][:4])
             if "RA--" in ctypes and "DEC-" in ctypes:
                 ra_ind = np.where([ctype == "RA--" for ctype in ctypes])[0][0]
                 header_dict["s_ra"] = header[f"CTYPE{ra_ind+1}"]
@@ -165,3 +169,4 @@ if __name__ == "__main__":
             json.dump(meta_dict, f)
         if args.verbose:
             print(f"Metadata file written to {out_path}", end="\n\n")
+
