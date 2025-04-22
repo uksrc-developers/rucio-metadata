@@ -1,0 +1,7 @@
+name: rucio-metadata
+channels:
+  - conda-forge
+dependencies:
+  - astropy
+  - numpy
+  - python
