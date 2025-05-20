@@ -333,14 +333,11 @@ if __name__ == "__main__":
 
         # URLs from obs_id to move around in Rucio
         obs_id = f"{args.namespace}:{fp.name}"
-        obs_publisher_did = f"ivo://test.skao/~?{obs_id}"
+        obs_publisher_did = f"ivo://test.skao/data?{obs_id}"
         access_url = f"https://datalink.ivoa.srcnet.skao.int/rucio/links?id={obs_id}"
         
         # Forming the dictionary for the .json file
-        meta_dict = dict(
-            namespace=args.namespace,
-            name=fp.name,
-            lifetime=args.lifetime,
+        meta = dict(
             calib_level=args.calib_level,
             obs_collection=args.obs_collection,
             obs_id=obs_id,
@@ -351,6 +348,14 @@ if __name__ == "__main__":
             dataproduct_type=dataproduct_type,
             **header_info
         )
+
+        meta_dict = dict(
+            namespace=args.namespace,
+            name=fp.name,
+            lifetime=args.lifetime,
+            meta=meta
+        )
+        
         out_path = Path(args.out_dir) / f"{fp.name}.meta"
         with open(out_path, "w") as f:
             json.dump(meta_dict, f, indent = 4)
